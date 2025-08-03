@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIV Emergency Medical Services</title>
+    <style>
+        :root {
+            --navy-blue: #000080;
+            --emergency-red: #FF0000;
+            --pure-white: #FFFFFF;
+            --light-blue: #ADD8E6;
+            --dark-red: #8B0000;
+            --gray-text: #333333;
+            --light-gray: #F5F5F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: var(--gray-text);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--navy-blue);
+            color: var(--pure-white);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--pure-white);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--emergency-red);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--pure-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--light-blue);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,128,0.7), rgba(0,0,128,0.7)), 
+                        url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/12889e68-1a7f-464d-99e7-1c65ea2d1846.png') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--pure-white);
+            padding: 0 2rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--emergency-red);
+            color: var(--pure-white);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-red);
+        }
+
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--navy-blue);
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background-color: var(--emergency-red);
+            margin: 1rem auto;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background-color: var(--pure-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            color: var(--navy-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: var(--gray-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            padding: 2rem 1rem;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--emergency-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--navy-blue);
+            font-weight: 600;
+        }
+
+        .team-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-member-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1.5rem;
+            border: 5px solid var(--navy-blue);
+        }
+
+        .team-member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .client-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .client-logo {
+            max-width: 150px;
+            filter: grayscale(100%);
+            transition: filter 0.3s;
+        }
+
+        .client-logo:hover {
+            filter: grayscale(0%);
+        }
+
+        .client-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--navy-blue);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 150px;
+        }
+
+        footer {
+            background-color: var(--navy-blue);
+            color: var(--pure-white);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            color: var(--pure-white);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: var(--light-blue);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--pure-white);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--pure-white);
+            border-radius: 50%;
+            color: var(--navy-blue);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--emergency-red);
+            color: var(--pure-white);
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">LIV<span> Emergency Medical Services</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#care">Care in Crisis</a></li>
+                    <li><a href="#emergency">Emergency Medicine</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>We respond. We care.</h1>
+            <p>Advanced medical emergency services providing immediate care when every second counts</p>
+            <a href="#contact" class="btn">Contact Us Now</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">About LIV Emergency Medical Services</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>LIV Emergency Medical Services is reshaping healthcare in India by making life-saving emergency care accessible in real time. Through advanced technology, LIV bridges gaps in ambulance coordination, doctor access, and hospital integration—ensuring faster response times and better outcomes during critical moments.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2f0b6a7b-43f0-4030-9d4e-96c3f35e1346.png" alt="Team of emergency medical professionals in navy blue uniforms with red accents preparing medical equipment in a modern ambulance bay with emergency vehicles" />
+            </div>
+        </div>
+    </section>
+
+    <section id="care" style="background-color: var(--light-gray);">
+        <h2 class="section-title">Care in Crisis</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">Our comprehensive approach to emergency care ensures seamless intervention at every critical stage of medical emergencies.</p>
+        
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ed38c4bb-1f00-479e-9b4b-0303290259e6.png" alt="Emergency response team activating a medical emergency system with red alert lights flashing in the background" />
+                </div>
+                <div class="card-content">
+                    <h3>Activation of ERS</h3>
+                    <p>Our 24/7 emergency response system ensures immediate dispatch of trained professionals with precise location tracking for rapid arrival.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/534c113f-d4b4-40ba-8f00-86186a8e7ff1.png" alt="Medical professional performing CPR on a patient with proper chest compression technique in an emergency setting" />
+                </div>
+                <div class="card-content">
+                    <h3>Early CPR</h3>
+                    <p>Our responders provide immediate, high-quality cardiopulmonary resuscitation to maintain circulation and oxygenation until advanced care arrives.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/60a9f998-3391-4167-a31e-de703baaa224.png" alt="Emergency medical technician using an AED defibrillator on a patient with clear electrode pad placement" />
+                </div>
+                <div class="card-content">
+                    <h3>Rapid Defibrillation</h3>
+                    <p>Early defibrillation for cardiac arrest patients using automated external defibrillators (AEDs) significantly improves survival rates.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/40d1ead0-474d-4fa2-97d0-b7074c144a6a.png" alt="Emergency physician administering advanced life support interventions with IV medications and airway management" />
+                </div>
+                <div class="card-content">
+                    <h3>Advanced Life Support</h3>
+                    <p>Paramedics provide medication administration, airway management, and other advanced interventions during transport to the hospital.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/967a278e-488e-4d0f-a808-7ad0af7ee9bb.png" alt="Medical team in ICU monitoring a post-cardiac arrest patient with various life support equipment" />
+                </div>
+                <div class="card-content">
+                    <h3>Post Cardiac Arrest Care</h3>
+                    <p>Comprehensive post-resuscitation care including targeted temperature management and hemodynamic optimization.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/436be433-a82c-4bc8-8d14-e20d9402a08f.png" alt="Rehabilitation specialist working with a patient on recovery exercises in a modern therapy gym" />
+                </div>
+                <div class="card-content">
+                    <h3>Recovery</h3>
+                    <p>Specialized rehabilitation programs to help patients regain function and quality of life after serious illness or injury.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3f52149c-93a6-4ee4-8152-e51bc4ac9af6.png" alt="Emergency department staff working efficiently in a modern hospital setting with multiple patients in bays" />
+                </div>
+                <div class="card-content">
+                    <h3>In-Hospital Care</h3>
+                    <p>Seamless transition to emergency department physicians and specialists for continued care and diagnostics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="emergency">
+        <h2 class="section-title">Emergency Medicine</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/71b264fa-969e-467f-b444-c72cb6e84950.png" alt="Emergency room team working on multiple trauma cases with organized chaos of emergency medicine in action" />
+            </div>
+            <div class="about-text">
+                <p>Our emergency medicine specialists are trained to handle the most critical cases with speed, precision, and compassion. We provide:</p>
+                <ul style="margin-top: 1rem; padding-left: 2rem;">
+                    <li>Advanced trauma life support</li>
+                    <li>Pediatric emergency care</li>
+                    <li>Cardiac and stroke intervention</li>
+                    <li>Toxicology emergencies</li>
+                    <li>Respiratory crisis management</li>
+                    <li>Disaster response preparedness</li>
+                </ul>
+                <p style="margin-top: 1.5rem;">Our emergency physicians maintain board certification and participate in continuous medical education to stay at the forefront of emergency care advancements.</p>
+            </div>
+        </div>
+    </section>
+
+    <section style="background-color: var(--navy-blue); color: var(--pure-white);">
+        <h2 class="section-title" style="color: var(--pure-white);">What is a Medical Emergency?</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>A medical emergency is any condition that poses an immediate threat to a person's life or long-term health. These situations require urgent medical intervention to prevent severe harm or death.</p>
+                <p>Common medical emergencies include:</p>
+                <ul style="margin-top: 1rem; padding-left: 2rem;">
+                    <li>Chest pain or pressure lasting more than a few minutes</li>
+                    <li>Difficulty breathing or shortness of breath</li>
+                    <li>Sudden severe headache (possible stroke)</li>
+                    <li>Uncontrolled bleeding</li>
+                    <li>Sudden confusion or altered mental status</li>
+                    <li>Severe burns or trauma</li>
+                    <li>Suicidal or homicidal feelings</li>
+                </ul>
+                <p style="margin-top: 1.5rem;">When in doubt, it's always better to seek emergency medical attention than to wait. Our team is trained to assess and prioritize care based on severity.</p>
+                <a href="#contact" class="btn" style="margin-top: 1rem;">Emergency Contact</a>
+            </div>
+            <div class="about-image">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/58783396-fc84-4217-81c6-cc02bc21fbc8.png" alt="Diverse group of people experiencing various medical emergency symptoms with concerned expressions" />
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">Critical Gaps in Emergency Healthcare Service</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">We've identified and addressed these key challenges in traditional emergency medical response.</p>
+        
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-content">
+                    <h3>Response Time Delays</h3>
+                    <p>Traditional systems often face delays in dispatch and arrival. Our optimized deployment strategy ensures rapid response.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3>Limited Resource Allocation</h3>
+                    <p>We maintain strategic equipment and personnel placement based on predictive analytics of emergency needs.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3>Communication Breakdowns</h3>
+                    <p>Our integrated communication system ensures seamless information flow between responders and hospitals.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3>Training Variability</h3>
+                    <p>All personnel receive standardized, ongoing training using high-fidelity simulation and competency assessments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background-color: var(--light-gray);">
+        <h2 class="section-title">Impact on Emergency Healthcare</h2>
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Response Rate Under 8 Minutes</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">120k+</div>
+                <div class="stat-label">Lives Saved</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Communities Served</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Availability</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">Unmatched Excellence in Every Critical Moment</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a055095f-c140-4c91-ba1b-e9182d48b112.png" alt="High-tech emergency medical equipment and monitoring devices with LIV branding displayed prominently" />
+            </div>
+            <div class="about-text">
+                <p>Our commitment to excellence permeates every aspect of our service:</p>
+                <ul style="margin-top: 1rem; padding-left: 2rem;">
+                    <li>Cutting-edge medical technology</li>
+                    <li>Rigorous quality assurance programs</li>
+                    <li>Continuous improvement initiatives</li>
+                    <li>Patient-centered care philosophy</li>
+                    <li>Evidence-based protocols</li>
+                    <li>Compassionate, professional staff</li>
+                </ul>
+                <p style="margin-top: 1.5rem;">We measure our success not just in response times, but in complete patient outcomes and quality of life after emergencies.</p>
+            </div>
+        </div>
+    </section>
+
+    <section style="background-color: var(--navy-blue); color: var(--pure-white);">
+        <h2 class="section-title" style="color: var(--pure-white);">Our Reach and Vision for the Future</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Currently serving over 5 million people across 14 states, LIV Emergency Services has ambitious expansion plans to make high-quality emergency care accessible to all.</p>
+                <p>Our 5-year vision includes:</p>
+                <ul style="margin-top: 1rem; padding-left: 2rem;">
+                    <li>Expansion to 30 states</li>
+                    <li>Implementation of AI-assisted dispatch</li>
+                    <li>Drone delivery of emergency supplies</li>
+                    <li>Community emergency response training programs</li>
+                    <li>Mobile integrated healthcare partnerships</li>
+                </ul>
+                <p style="margin-top: 1.5rem;">We believe every community deserves world-class emergency medical services, regardless of location or economic status.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3cf1a236-3a7f-4883-b574-848845bd7c5a.png" alt="Map showing LIV emergency service coverage areas across multiple states with projected expansion zones" />
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">Our Team</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">Meet the dedicated professionals who make our emergency response possible.</p>
+        
+        <div class="team-container">
+            <div class="team-member">
+                <div class="team-member-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/49120e33-f71e-4fdf-929d-a2f2d350f0a8.png" alt="Chief Medical Officer Dr. Sarah Johnson, an experienced emergency physician in a white coat with stethoscope" />
+                </div>
+                <h3>Dr. Sarah Johnson</h3>
+                <p>Chief Medical Officer</p>
+                <p>Board Certified Emergency Physician</p>
+            </div>
+            <div class="team-member">
+                <div class="team-member-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4aa49aa0-653d-4f7a-ab18-abc5eb028a02.png" alt="Director of Operations Michael Chen, a professional in a navy blue LIV uniform with operations badge" />
+                </div>
+                <h3>Michael Chen</h3>
+                <p>Director of Operations</p>
+                <p>20+ Years EMS Experience</p>
+            </div>
+            <div class="team-member">
+                <div class="team-member-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1a2b3b66-4b2e-4aee-aba4-dd346226d352.png" alt="Lead Paramedic Jessica Williams in full emergency response gear with a confident expression" />
+                </div>
+                <h3>Jessica Williams</h3>
+                <p>Lead Paramedic</p>
+                <p>Critical Care Specialist</p>
+            </div>
+            <div class="team-member">
+                <div class="team-member-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9c735e6e-f327-4ce7-b514-d436420287ca.png" alt="Training Director Robert Garcia demonstrating emergency procedure in a training environment" />
+                </div>
+                <h3>Robert Garcia</h3>
+                <p>Training Director</p>
+                <p>Simulation Expert</p>
+            </div>
+        </div>
+    </section>
+
+    <section style="background-color: var(--light-gray);">
+        <h2 class="section-title">Our Clients</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">Trusted by healthcare organizations and communities nationwide.</p>
+        
+        <div class="client-logos">
+            <div class="client-logo">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f491229f-b3ec-445d-996d-e5767fe17937.png" alt="Modern hospital logo with clean typography and medical cross symbol" />
+            </div>
+            <div class="client-logo">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2b515872-305b-4b58-937c-8aebd97f62fb.png" alt="State health department emblem with official seal design in blue and gold" />
+            </div>
+            <div class="client-logo">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/237ae503-fe7a-43f9-9eca-09b02b2d3676.png" alt="University medical center logo with academic crest and health symbols" />
+            </div>
+            <div class="client-logo">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6c2a3ec5-a244-4408-9b57-9b31306f1f8c.png" alt="Corporate healthcare provider logo with abstract health motif" />
+            </div>
+            <div class="client-logo">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/46d5082a-46f1-4fcc-94f5-776d457777d0.png" alt="Community health initiative logo with diverse people silhouette" />
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div style="display: flex; gap: 3rem;">
+            <div style="flex: 1;">
+                <h3 style="color: var(--navy-blue); margin-bottom: 1.5rem;">Emergency Contact</h3>
+                <p style="margin-bottom: 1.5rem;"><strong>24/7 Emergency Dispatch:</strong> 1-800-LIV-9111</p>
+                <p style="margin-bottom: 1.5rem;"><strong>Non-Emergency Inquiries:</strong> 1-888-LIV-EMS</p>
+                <p style="margin-bottom: 1.5rem;"><strong>Email:</strong> contact@livemergency.com</p>
+                
+                <h3 style="color: var(--navy-blue); margin: 2rem 0 1.5rem;">Headquarters</h3>
+                <p style="margin-bottom: 1rem;">123 Emergency Way</p>
+                <p style="margin-bottom: 1rem;">Metropolis, NY 10001</p>
+                <p>United States</p>
+                
+                <div style="margin-top: 3rem;">
+                    <h3 style="color: var(--navy-blue); margin-bottom: 1.5rem;">Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">Facebook</a>
+                        <a href="#" aria-label="Twitter">Twitter</a>
+                        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                        <a href="#" aria-label="Instagram">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div style="flex: 1;">
+                <div class="contact-form">
+                    <h3 style="color: var(--navy-blue); margin-bottom: 1.5rem; text-align: center;">Send Us a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>LIV Emergency</h3>
+                <p>Setting the standard for emergency medical services through innovation, excellence, and compassion.</p>
+                <p style="margin-top: 1rem;">Available 24 hours a day, 365 days a year.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#care">Our Services</a></li>
+                    <li><a href="#emergency">Emergency Medicine</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Emergency Preparedness</a></li>
+                    <li><a href="#">CPR Training</a></li>
+                    <li><a href="#">First Aid Tips</a></li>
+                    <li><a href="#">Community Programs</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Emergency Numbers</h3>
+                <ul>
+                    <li>Medical Emergency: 1-800-LIV-9111</li>
+                    <li>Non-Emergency: 1-888-LIV-EMS</li>
+                    <li>Corporate Offices: 1-800-LIV-HQ</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2023 LIV Emergency Medical Services. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form submission handling
+        const contactForm = document.querySelector('#contact form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message. Our team will respond promptly.');
+                this.reset();
+            });
+        }
+    </script>
+</body>
+</html>
+
